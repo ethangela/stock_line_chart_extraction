@@ -1,0 +1,22 @@
+k_line_1 1521
+k_line_2 1581
+k_line_3 1551
+k_line_4 1571
+k_line_5 1571
+k_line_6 1581
+
+
+ema_1 1541
+ema_2 1401
+ema_3 1341
+ema_4 1581
+ema_5 1541
+ema_6 1541
+
+
+wma_1 1561
+wma_2 1581
+wma_3 1561
+wma_4 1571
+wma_5 1531
+wma_6 1561
