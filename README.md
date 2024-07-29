@@ -38,7 +38,7 @@ First, we observed significant fluctuations in the lengths of the EMA lines acro
 On the other hand, all WMA lines across 6 tickers have a similar number of coordinates. Therefore, when comparing WMA lines between two tickers, such as `wma_line_4` and `wma_line_6`, we find the minimum length of the two lines and randomly remove few points from the longer line to align their lengths.
 
 
-### 3. Calculate pearson similarity, euclidean distance and procrustes distance of both k-lines and wma lines of 6 tickers
+### 3.Pearson similarity, euclidean distance and procrustes distance
 
 We calculate three types of similarity metrics — Pearson similarity, Euclidean distance, and Procrustes distance — for both K-lines and WMA lines of the 6 tickers.
 
@@ -48,15 +48,22 @@ Euclidean distance measures the straight-line distance between two points in Euc
 
 Procrustes distance also measures the similarity between two data sets. More details can be found at [scipy.spatial.procrustes](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.procrustes.html)
 
-To fine-tune the Pearson similarity matrix, we normalize the Euclidean distance and Procrustes distance matrices to be in the range of 0 to 1, and then use these distance matrices as weights:
 
-`combined_distance_matrix = (normalized_euclidean_matrix + normalized_procrustes_matrix) / 2`
+### 4. results
+
+We first calculate the Pearson similarity, euclidean distance and procrustes distance of WMA lines among 6 tickers.
+
+After obtaining the 6x6 Pearson similarity matrix `wma_pearson_similarity_matrix`, we can fine-tune it with the 6x6 euclidean distance matrix `wma_euclidean_matrix` and the 6x6 procrustes distance matrix `wma_procrustes_matrix`. 
+
+Specifically, we normalize the Euclidean distance and Procrustes distance matrices to be in the range of 0 to 1, and then use these the average of these two distance matrices as weights:
+
+`combined_distance_matrix = (normalized_wma_euclidean_matrix + normalized_wma_procrustes_matrix) / 2`
 
 `weight_factor = 0.5`
 
 `wma_weighted_pearson_similarity_matrix = wma_pearson_similarity_matrix * (1 - weight_factor * combined_distance_matrix)`
 
-This weight factor value, 0.5,  is determined through initial tests and can be further fine-tuned.
+This weight factor value, 0.5, is determined through some initial tests and can be further fine-tuned.
 
 Similarly, we apply the same process to the K-lines and obtain a weighted K-line similarity matrix `kline_weighted_pearson_similarity_matrix`.
 
