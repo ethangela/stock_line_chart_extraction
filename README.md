@@ -33,7 +33,7 @@ These preprocessing steps are applied to all 6 tickers.
 
 The extracted coordinates of the k-line, EMA, and WMA lines for each ticker may vary in length, which we need to address before calculating similarity. For example, when calculating the Pearson correlation between two lines, they must have the same length. The details of the lengths of the k-line, EMA, and WMA lines for each ticker can be found in `./length.txt`.
 
-First, we observed significant fluctuations in the lengths of the EMA lines, so we excluded EMA lines from the similarity analysis. Next, we found that, except for `k_line_1` (the extracted k-line for ticker 1), all other k-lines have a similar number of coordinates. All wma-lines also have a similar number of coordinates. We manually identified that the existence of some sparse points in `k_line_1` results such lower number of coordinates. Consdiering this, whenever dealing with `k_line_1`, we use interpolation to increase its length. An example of this interpolation is shown below (before interpolation and after interpolation):
+First, we observed significant fluctuations in the lengths of the EMA lines, and some time the extracted coordinates are incorrect (possibly due to the its subtle green color), so we excluded EMA lines from the similarity analysis. Next, we found that, except for `k_line_1` (the extracted k-line for ticker 1), all other k-lines have a similar number of coordinates. All wma-lines also have a similar number of coordinates. We manually identified that the existence of some sparse points in `k_line_1` results such lower number of coordinates. Consdiering this, whenever dealing with `k_line_1`, we use interpolation to increase its length. An example of this interpolation is shown below (before interpolation and after interpolation):
 
 ![](./1_k_line_original.png)
 
@@ -48,39 +48,27 @@ We calculate three types of similarity metrics—Pearson similarity, Euclidean d
 
 Pearson similarity measures the linear correlation between two sets of points. It ranges from -1 to 1, where 1 indicates a perfect positive linear relationship, -1 indicates a perfect negative linear relationship, and 0 indicates no linear relationship.
 
-For example, the Pearson similarity matrix for WMA-lines is:
-
-|          | Ticker 1    | Ticker 2    | Ticker 3    | Ticker 4    | Ticker 5    | Ticker 6    |
-|----------|-------------|-------------|-------------|-------------|-------------|-------------|
-| **Ticker 1** | 1.0000      | 0.9471      | 0.8926      | 0.3973      | 0.1124      | 0.3563      |
-| **Ticker 2** | 0.9471      | 1.0000      | 0.9060      | 0.4124      | 0.1466      | 0.3736      |
-| **Ticker 3** | 0.8926      | 0.9060      | 1.0000      | 0.4520      | 0.2103      | 0.4398      |
-| **Ticker 4** | 0.3973      | 0.4124      | 0.4520      | 1.0000      | 0.6938      | 0.8028      |
-| **Ticker 5** | 0.1124      | 0.1466      | 0.2103      | 0.6938      | 1.0000      | 0.7105      |
-| **Ticker 6** | 0.3563      | 0.3736      | 0.4398      | 0.8028      | 0.7105      | 1.0000      |
-
-
 Euclidean distance measures the straight-line distance between two points in Euclidean space. For two lines represented by their coordinates, the Euclidean distance quantifies the overall distance between the corresponding points on the two lines.
 
 Procrustes distance measures the similarity between two shapes by optimally translating, rotating, and scaling one shape to best match the other.
 
 To fine-tune the Pearson similarity matrix, we normalize the Euclidean distance and Procrustes distance matrices to be in the range of 0 to 1, and then use these distance matrices as weights:
 
-`combined_distance_matrix = (normalized_euclidean + normalized_procrustes) / 2`
+`combined_distance_matrix = (normalized_euclidean_matrix + normalized_procrustes_matrix) / 2`
 
 `weight_factor = 0.5`
 
-`wma_weighted_similarity_matrix = wma_similarity_matrix * (1 - weight_factor * combined_distance_matrix)`
+`wma_weighted_pearson_similarity_matrix = wma_pearson_similarity_matrix * (1 - weight_factor * combined_distance_matrix)`
 
 This weight factor value, 0.5,  is determined through initial tests and can be further fine-tuned.
 
-Similarly, we apply the same process to the K-lines and obtain a weighted K-line similarity matrix `kline_weighted_similarity_matrix`.
+Similarly, we apply the same process to the K-lines and obtain a weighted K-line similarity matrix `kline_weighted_pearson_similarity_matrix`.
 
 Now we have two matrice, and we would like to produce a combined similarity matrix by averaging them:
 
 `weight_factor = 0.7`
 
-`final_similarity_matrix = weight_factor * wma_weighted_similarity_matrix + (1-weight_factor) * kline_weighted_similarity_matrix`
+`final_similarity_matrix = weight_factor * wma_weighted_pearson_similarity_matrix + (1-weight_factor) * kline_weighted_pearson_similarity_matrix`
 
 This factor value, 0.7,  is chosen because we observed that WMA lines are extracted more accurately than K-lines.
 
