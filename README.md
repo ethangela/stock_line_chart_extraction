@@ -21,11 +21,9 @@ Thus, we need to analyze these extracted lines to determine which lines are usef
 
 ![](./1_all.png)
 
-Although the original Ticker1.png lacks legend information, we infer that the corresponding lines should represent the k-line, EMA, and WMA. The SMA line, which seems to appear as the yellow line in the original Ticker1.png, is not detected, possibly due to its subtle yellow color.
+In this figure, the coordinates of these three lines have been adjusted so that the leftmost point of the entire figure is at (0,0). Although the original Ticker1.png lacks legend information, we infer that the corresponding lines should represent the k-line, EMA, and WMA. The SMA line, which seems to appear as the yellow line in the original Ticker1.png, is missing here (not detected), possibly due to its subtle yellow color. 
 
-The coordinates of these three lines have been adjusted so that the leftmost point of the entire figure is at (0,0). The complete coordinate data is saved in a JSON file and is available in the `./chart_extract_finetune_json`.
-
-Coordinates and replots of all 6 tickers can be found at `./chart_extract_raw_output`. These preprocessing steps are applied to all 6 tickers.
+Similarly, we pick the k-line, EMA, and WMA lines for the rest of 5 tickers. The coordinates of these three lines of all 6 tickers are saved in `./chart_extract_finetune_json` in the form of JSON files, and the replots of them can be found at `./chart_extract_raw_output`.
 
 ### 3.  Handling fifferent lengths of extracted coordinates among 6 Tickers
 
