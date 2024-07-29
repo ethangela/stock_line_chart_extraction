@@ -55,7 +55,7 @@ We first calculate the Pearson similarity, euclidean distance and procrustes dis
 
 After obtaining the 6x6 Pearson similarity matrix `wma_pearson_similarity_matrix`, we can fine-tune it with the 6x6 euclidean distance matrix `wma_euclidean_matrix` and the 6x6 procrustes distance matrix `wma_procrustes_matrix`. 
 
-Specifically, we normalize the Euclidean distance and Procrustes distance matrices to be in the range of 0 to 1, and then use these the average of these two distance matrices as weights:
+Specifically, we normalize the Euclidean distance and Procrustes distance matrices to be in the range of 0 to 1, and then use the simple average of these two distance matrices as weights:
 
 `combined_distance_matrix = (normalized_wma_euclidean_matrix + normalized_wma_procrustes_matrix) / 2`
 
