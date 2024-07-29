@@ -97,5 +97,5 @@ The final matrix is presented below:
 | **Ticker 6** | 0.3307      | 0.3472      | 0.4221      | 0.7918      | 0.7001      | 1.0000      |
 
 
-All results can be reproduce using the code `matrix_produce.py`
+All results can be reproduced using the code `matrix_produce.py`
 
