@@ -20,7 +20,9 @@ For instance, although Ticker1.png contains only 4 lines, the previous step iden
 Coordinates and replots of all 6 tickers can be found at `./chart_extract_raw_output`.
 
 Thus, we need to analyze these extracted lines to determine which 4 lines are useful. This process involves manual testing, examining each line individually. Using Ticker1.png as an example, we found that three detected lines are suitable for downstream tasks. We replot these three lines in another figure:
-![Project Screenshot](./images/screenshot.png)
+
+![](./1_all.png)
+
 Although the original Ticker1.png lacks legend information, we infer that the corresponding lines should represent the k-line, EMA, and WMA. The SMA line, which seems to appear as the yellow line in the original Ticker1.png, is not detected, possibly due to its subtle yellow color.
 
 The coordinates of these three lines have been adjusted so that the leftmost point of the entire figure is at (0,0). The complete coordinate data is saved in a JSON file and is available in the `./chart_extract_finetune_json`.
@@ -31,10 +33,11 @@ These preprocessing steps are applied to all 6 tickers.
 
 The extracted coordinates of the k-line, EMA, and WMA lines for each ticker may vary in length, which we need to address before calculating similarity. For example, when calculating the Pearson correlation between two lines, they must have the same length. The details of the lengths of the k-line, EMA, and WMA lines for each ticker can be found in `./length.txt`.
 
-First, we observed significant fluctuations in the lengths of the EMA lines, so we excluded EMA lines from the similarity analysis. Next, we found that, except for `k_line_1` (the extracted k-line for ticker 1), all other k-lines have a similar number of coordinates. All wma-lines also have a similar number of coordinates. We manually identified that the existence of some sparse points in `k_line_1` results such lower number of coordinates. Consdiering this, whenever dealing with `k_line_1`, we use interpolation to increase its length. An example of this interpolation is shown below:
+First, we observed significant fluctuations in the lengths of the EMA lines, so we excluded EMA lines from the similarity analysis. Next, we found that, except for `k_line_1` (the extracted k-line for ticker 1), all other k-lines have a similar number of coordinates. All wma-lines also have a similar number of coordinates. We manually identified that the existence of some sparse points in `k_line_1` results such lower number of coordinates. Consdiering this, whenever dealing with `k_line_1`, we use interpolation to increase its length. An example of this interpolation is shown below (before interpolation and after interpolation):
 
-![Project Screenshot](./images/screenshot.png)
-![Project Screenshot](./images/screenshot.png)
+![](./1_k_line_original.png)
+
+![](./1_k_line_after_exp.png)
 
 For other lines, when comparing two lines, such as `wma_line_4` and `wma_line_6`, we find the minimum length of the two lines and randomly remove few points from the longer line to align their lengths.
 
