@@ -14,7 +14,9 @@ We utilize techniques from the ICDAR 2023 paper, `LineFormer - Rethinking Chart 
 The line chart data extracted in the previous step is often messy and requires further preprocessing for downstream tasks.
 
 For instance, although Ticker1.png contains only 4 lines, the previous step identified 6 lines due to the difficulty of meticulous accurate detection. Using the extracted coordinates and replotting these 6 lines on the original image appears as follows:
-![Project Screenshot](./images/screenshot.png)
+
+![](./chart_extract_raw_output/1.png)
+
 Coordinates and replots of all 6 tickers can be found at `./chart_extract_raw_output`.
 
 Thus, we need to analyze these extracted lines to determine which 4 lines are useful. This process involves manual testing, examining each line individually. Using Ticker1.png as an example, we found that three detected lines are suitable for downstream tasks. We replot these three lines in another figure:
