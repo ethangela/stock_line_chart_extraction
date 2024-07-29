@@ -2,14 +2,14 @@
 
 ## Introduction
 
-Data extraction from line-chart images is an essential component of the automated document understanding process, this project focuses on first extracting line chart data from the raw screenshot image, and then exploring the similarites among the extrated data.
+Data extraction from line-chart images is an essential component of the automated document understanding process. This project focuses on first extracting line chart data from the raw screenshot image, and then exploring the similarites among the extrated data.
 
 ## Workflow
 
 ### 1. Extract line chart data from image
 We utilize techniques from the ICDAR 2023 paper, `LineFormer - Rethinking Chart Data Extraction as Instance Segmentation`, to extract line data through instance segmentation. The code is adapted from [LineFormer](https://github.com/TheJaeLal/LineFormer), and we use their pre-trained model directly for this task.
 
-### 2. Extract the useful information from the extracted data above
+### 2. Extract the useful information from the extracted data
 
 The line chart data extracted in the previous step is often messy and requires further preprocessing for downstream tasks.
 
@@ -17,9 +17,7 @@ For instance, although Ticker1.png contains only 4 lines, the previous step iden
 
 ![](./chart_extract_raw_output/1.png)
 
-Coordinates and replots of all 6 tickers can be found at `./chart_extract_raw_output`.
-
-Thus, we need to analyze these extracted lines to determine which 4 lines are useful. This process involves manual testing, examining each line individually. Using Ticker1.png as an example, we found that three detected lines are suitable for downstream tasks. We replot these three lines in another figure:
+Thus, we need to analyze these extracted lines to determine which lines are useful. This process involves manual testing, examining each line individually. Sttill using Ticker1.png as an example, we found that three detected lines are suitable for downstream tasks. We replot these three lines in another figure:
 
 ![](./1_all.png)
 
@@ -27,7 +25,7 @@ Although the original Ticker1.png lacks legend information, we infer that the co
 
 The coordinates of these three lines have been adjusted so that the leftmost point of the entire figure is at (0,0). The complete coordinate data is saved in a JSON file and is available in the `./chart_extract_finetune_json`.
 
-These preprocessing steps are applied to all 6 tickers.
+Coordinates and replots of all 6 tickers can be found at `./chart_extract_raw_output`. These preprocessing steps are applied to all 6 tickers.
 
 ### 3.  Handling fifferent lengths of extracted coordinates among 6 Tickers
 
