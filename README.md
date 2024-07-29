@@ -35,18 +35,18 @@ First, we observed significant fluctuations in the lengths of the EMA lines acro
 
 ![](./1_k_line_after_exp.png)
 
-On the other hand, all wma lines across 6 tickers have a similar number of coordinates. Therefore, when comparing wma lines between two tickers, such as `wma_line_4` and `wma_line_6`, we find the minimum length of the two lines and randomly remove few points from the longer line to align their lengths.
+On the other hand, all WMA lines across 6 tickers have a similar number of coordinates. Therefore, when comparing WMA lines between two tickers, such as `wma_line_4` and `wma_line_6`, we find the minimum length of the two lines and randomly remove few points from the longer line to align their lengths.
 
 
-### 3. Calculate pearson similarity, euclidean distance and procrustes distance of both k-lines and wma-lines of 6 tickers
+### 3. Calculate pearson similarity, euclidean distance and procrustes distance of both k-lines and wma lines of 6 tickers
 
-We calculate three types of similarity metrics — Pearson similarity, Euclidean distance, and Procrustes distance — for both K-lines and WMA-lines of the 6 tickers.
+We calculate three types of similarity metrics — Pearson similarity, Euclidean distance, and Procrustes distance — for both K-lines and WMA lines of the 6 tickers.
 
-Pearson similarity measures the linear correlation between two sets of points. It ranges from -1 to 1, where 1 indicates a perfect positive linear relationship, -1 indicates a perfect negative linear relationship, and 0 indicates no linear relationship.
+Pearson similarity (Pearson correlation coefficient) measures the linear correlation between two sets of points. It ranges from -1 to 1, where 1 indicates a perfect positive linear relationship, -1 indicates a perfect negative linear relationship, and 0 indicates no linear relationship. In our case, each line is represented by two-dimensional coordinates (x, y), where x denotes the sequence of timestamps. Therefore, we focus solely on the y-axis (one-dimensional data) when calculating Pearson similarity between the lines.
 
-Euclidean distance measures the straight-line distance between two points in Euclidean space. For two lines represented by their coordinates, the Euclidean distance quantifies the overall distance between the corresponding points on the two lines.
+Euclidean distance measures the straight-line distance between two points in Euclidean space. For two lines represented by their coordinates, the Euclidean distance quantifies the overall distance between the corresponding points on the two lines. We use 
 
-Procrustes distance measures the similarity between two shapes by optimally translating, rotating, and scaling one shape to best match the other.
+Procrustes distance also measures the similarity between two data sets. More details can be found at [scipy.spatial.procrustes](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.procrustes.html)
 
 To fine-tune the Pearson similarity matrix, we normalize the Euclidean distance and Procrustes distance matrices to be in the range of 0 to 1, and then use these distance matrices as weights:
 
