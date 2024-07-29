@@ -67,13 +67,13 @@ This weight factor value, 0.5, is determined through some initial tests and can 
 
 Similarly, we apply the same process to the K-lines and obtain a weighted K-line similarity matrix `kline_weighted_pearson_similarity_matrix`.
 
-Now we have two matrice, and we would like to produce a combined similarity matrix by averaging them:
+Now we have two matrice, and we would like to produce a combined similarity matrix by weighted-averaging them:
 
 `weight_factor = 0.7`
 
 `final_similarity_matrix = weight_factor * wma_weighted_pearson_similarity_matrix + (1-weight_factor) * kline_weighted_pearson_similarity_matrix`
 
-This factor value, 0.7,  is chosen because we observed that WMA lines are extracted more accurately than K-lines.
+This factor value, 0.7, is chosen because we observed that WMA lines are extracted more accurately than K-lines.
 
 The final matrix is presented below:
 
