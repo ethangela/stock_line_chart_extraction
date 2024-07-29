@@ -23,24 +23,24 @@ Thus, we need to analyze these extracted lines to determine which lines are usef
 
 In this figure, the coordinates of these three lines have been adjusted so that the leftmost point of the entire figure is at (0,0). Although the original Ticker1.png lacks legend information, we infer that the corresponding lines should represent the k-line, EMA, and WMA. The SMA line, which seems to appear as the yellow line in the original Ticker1.png, is missing here (not detected), possibly due to its subtle yellow color. 
 
-Similarly, we pick the k-line, EMA, and WMA lines for the rest of 5 tickers. The coordinates of these three lines of all 6 tickers are saved in `./chart_extract_finetune_json` in the form of JSON files, and the replots of them can be found at `./chart_extract_raw_output`.
+Similarly, we find and pick the k-line, EMA, and WMA lines from all extracted lines for the rest of 5 tickers. The coordinates of these three lines of all 6 tickers are saved in `./chart_extract_finetune_json` in the form of JSON files, and the replots of them can be found at `./chart_extract_raw_output`.
 
-### 3.  Handling fifferent lengths of extracted coordinates among 6 Tickers
+### 3.  Handling different lengths of the extracted coordinates among 6 Tickers
 
-The extracted coordinates of the k-line, EMA, and WMA lines for each ticker may vary in length, which we need to address before calculating similarity. For example, when calculating the Pearson correlation between two lines, they must have the same length. The details of the lengths of the k-line, EMA, and WMA lines for each ticker can be found in `./length.txt`.
+The extracted coordinates of the k-line, EMA, and WMA lines for each ticker may vary in length, which we need to address before calculating similarity. This is because, for example, when calculating the Pearson correlation between two vectors, they must have the same length. The details of the lengths of the extracted k-line, EMA, and WMA lines for each ticker can be found in `./length.txt`.
 
-First, we observed significant fluctuations in the lengths of the EMA lines, and some time the extracted coordinates are incorrect (possibly due to the its subtle green color), so we excluded EMA lines from the similarity analysis. Next, we found that, except for `k_line_1` (the extracted k-line for ticker 1), all other k-lines have a similar number of coordinates. All wma-lines also have a similar number of coordinates. We manually identified that the existence of some sparse points in `k_line_1` results such lower number of coordinates. Consdiering this, whenever dealing with `k_line_1`, we use interpolation to increase its length. An example of this interpolation is shown below (before interpolation and after interpolation):
+First, we observed significant fluctuations in the lengths of the EMA lines across 6 tickers, and the coordinates of some EMA lines are incorrect (possibly because the subtle green color of the EMA lines in the original image is hard to be detected), so we excluded EMA lines from the similarity analysis. Next, we found that, except for `k_line_1` (the extracted k-line for ticker 1), all other k-lines of the rest of tickers have a similar number of coordinates. The number of coordinates of `k_line_1` is low because there are some sparse points in the extracted `k_line_1`. Consdiering this, whenever dealing with `k_line_1`, we use interpolation to fill-in some coordinates and hence increase its length. An example of this interpolation is shown below (before interpolation and after interpolation):
 
 ![](./1_k_line_original.png)
 
 ![](./1_k_line_after_exp.png)
 
-For other lines, when comparing two lines, such as `wma_line_4` and `wma_line_6`, we find the minimum length of the two lines and randomly remove few points from the longer line to align their lengths.
+On the other hand, all wma lines across 6 tickers have a similar number of coordinates. Therefore, when comparing wma lines between two tickers, such as `wma_line_4` and `wma_line_6`, we find the minimum length of the two lines and randomly remove few points from the longer line to align their lengths.
 
 
 ### 3. Calculate pearson similarity, euclidean distance and procrustes distance of both k-lines and wma-lines of 6 tickers
 
-We calculate three types of similarity metrics—Pearson similarity, Euclidean distance, and Procrustes distance—for both K-lines and WMA-lines of the 6 tickers.
+We calculate three types of similarity metrics — Pearson similarity, Euclidean distance, and Procrustes distance — for both K-lines and WMA-lines of the 6 tickers.
 
 Pearson similarity measures the linear correlation between two sets of points. It ranges from -1 to 1, where 1 indicates a perfect positive linear relationship, -1 indicates a perfect negative linear relationship, and 0 indicates no linear relationship.
 
