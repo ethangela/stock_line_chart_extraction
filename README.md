@@ -19,11 +19,11 @@ For instance, although Ticker1.png contains only 4 lines, the previous step iden
 
 Thus, we need to analyze these extracted lines to determine which lines are useful. This process involves manual testing, examining each line individually. Sttill using Ticker1.png as an example, we found that three detected lines are suitable for downstream tasks. We replot these three lines in another figure:
 
-![](./1_all.png)
+![](./chart_extract_finetune_replot/1_all.png)
 
 In this figure, the coordinates of these three lines have been adjusted so that the leftmost point of the entire figure is at (0,0). Although the original Ticker1.png lacks legend information, we infer that the corresponding lines should represent the k-line, EMA, and WMA. The SMA line, which seems to appear as the yellow line in the original Ticker1.png, is missing here (not detected), possibly due to its subtle yellow color. 
 
-Similarly, we find and pick the k-line, EMA, and WMA lines from all extracted lines for the rest of 5 tickers. The coordinates of these three lines of all 6 tickers are saved in `./chart_extract_finetune_json` in the form of JSON files, and the replots of them can be found at `./chart_extract_raw_output`.
+Similarly, we find and pick the k-line, EMA, and WMA lines from all extracted lines for the rest of 5 tickers. The coordinates of these three lines of all 6 tickers are saved in `./chart_extract_finetune_json` in the form of JSON files, and the replots of them can be found at `./chart_extract_finetune_replot`.
 
 ### 3.  Handling different lengths of the extracted coordinates among 6 Tickers
 
@@ -31,9 +31,9 @@ The extracted coordinates of the k-line, EMA, and WMA lines for each ticker may 
 
 First, we observed significant fluctuations in the lengths of the EMA lines across 6 tickers, and the coordinates of some EMA lines are incorrect (possibly because the subtle green color of the EMA lines in the original image is hard to be detected), so we excluded EMA lines from the similarity analysis. Next, we found that, except for `k_line_1` (the extracted k-line for ticker 1), all other k-lines of the rest of tickers have a similar number of coordinates. The number of coordinates of `k_line_1` is low because there are some sparse points in the extracted `k_line_1`. Consdiering this, whenever dealing with `k_line_1`, we use interpolation to fill-in some coordinates and hence increase its length. An example of this interpolation is shown below (before interpolation and after interpolation):
 
-![](./1_k_line_original.png)
+![](./chart_extract_finetune_replot/1_k_line_original.png)
 
-![](./1_k_line_after_exp.png)
+![](./chart_extract_finetune_replot/1_k_line_after_exp.png)
 
 On the other hand, all WMA lines across 6 tickers have a similar number of coordinates. Therefore, when comparing WMA lines between two tickers, such as `wma_line_4` and `wma_line_6`, we find the minimum length of the two lines and randomly remove few points from the longer line to align their lengths.
 
