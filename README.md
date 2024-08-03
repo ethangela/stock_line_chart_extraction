@@ -13,7 +13,11 @@ We utilize techniques from the ICDAR 2023 paper, `LineFormer - Rethinking Chart 
 
 The line chart data extracted in the previous step is often messy and requires further preprocessing for downstream tasks.
 
-For instance, although Ticker1.png contains only 4 lines, the previous step identified 6 lines due to the difficulty of meticulous accurate detection. Using the extracted coordinates and replotting these 6 lines on the original image appears as follows:
+For example the result for Ticker6.png seems good:
+
+![](./chart_extract_raw_output/6.png)
+
+However, although Ticker1.png contains only 4 lines, the previous step identified 6 lines due to the difficulty of meticulous accurate detection. Using the extracted coordinates and replotting these 6 lines on the original image appears as follows:
 
 ![](./chart_extract_raw_output/1.png)
 
