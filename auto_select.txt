@@ -1,39 +1,39 @@
 ticker: 1
-hight_rank: [4, 2, 3, 4, 5, 1]
-
-
+original_hight_rank: [4, 2, 3, 4, 1, 1]
+fluctuate_indicator: [0, 0, 0, 0, 1, 0]
+adjusted_hight_rank: [4, 2, 3, 4, 5, 1]
 
 
 
 ticker: 2
-hight_rank: [6, 5, 2, 2, 4, 6, 3, 1]
-
+original_hight_rank: [1, 6, 5, 5, 4, 2, 6, 3]
+fluctuate_indicator: [1, 0, 0, 0, 0, 1, 0, 0]
+adjusted_hight_rank: [6, 5, 2, 2, 4, 6, 3, 1]
 
 
 
 ticker: 3
-hight_rank: [4, 2, 3, 1]
-
+original_hight_rank: [4, 2, 3, 1]
+fluctuate_indicator: [0, 0, 0, 0]
+adjusted_hight_rank: [4, 2, 3, 1]
 
 
 
 ticker: 4
-hight_rank: [3, 5, 2, 4, 6, 1]
-
+original_hight_rank: [3, 6, 2, 4, 5, 1]
+fluctuate_indicator: [0, 0, 0, 0, 2, 0]
+adjusted_hight_rank: [3, 5, 2, 4, 6, 1]
 
 
 
 ticker: 5
-hight_rank: [5, 2, 6, 4, 1, 3, 6]
-
-
-
-img_id_line_dic = [ (1,{'k':6,'g':3,'r':2}), (2,{'k':8,'g':7,'r':3}), 
-    (3,{'k':4,'g':3,'r':2}), (4,{'k':6,'g':4,'r':3}), 
-    (5,{'k':5,'g':6,'r':2}), (6,{'k':4,'g':5,'r':1})]
-
+original_hight_rank: [6, 2, 2, 4, 1, 3, 5]
+fluctuate_indicator: [0, 0, 1, 0, 0, 0, 1]
+adjusted_hight_rank: [5, 2, 6, 4, 1, 3, 6]
 
 
 
 ticker: 6
-hight_rank: [2, 2, 5, 1, 3, 4]
+original_hight_rank: [2, 2, 5, 1, 3, 4]
+fluctuate_indicator: [0, 0, 0, 0, 0, 0]
+adjusted_hight_rank: [2, 2, 5, 1, 3, 4]
