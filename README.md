@@ -90,3 +90,35 @@ The final matrix is presented below:
 
 All results can be reproduced using the code `matrix_produce.py`
 
+
+### 5. rule-based line selection
+
+Our rule-based line selection procedure is designed to automatically filter and select the most relevant lines from a set of raw extracted lines based on specific criteria:
+
+1. Remove fluctuating lines that exhibit long segments with steep slopes, as these are considered highly fluctuating and do not represent smooth, consistent patterns.
+
+2. For the remaining lines, identify the highest point (in terms of the y-coordinate) among all lines. Using the x-coordinate of this highest point as an anchor, we draw a vertical line through this coordinate. The top 3 lines with the highest y-coordinates at this anchor point are selected as the ideal k-line, emav-line, and wma-line.
+
+Take ticker 5 as an example (before and after auto selection):
+
+![](./auto_select_examples/5_before_auto_select.png)
+
+![](./auto_select_examples/5_after_auto_select.png)
+
+However, there is one failed case for ticker 4 (manual selection and auto selection):
+
+![](./auto_select_examples/4_manual_select.png)
+
+![](./auto_select_examples/4_auto_select.png)
+
+Though it not changes the final results:
+
+|            | 1          | 0.9326     | 0.8702     | 0.3829     | 0.0795     | 0.3282     |
+|------------|------------|------------|------------|------------|------------|------------|
+| **0.9326** | 1          | 0.8923     | 0.3945     | 0.1102     | 0.3468     |
+| **0.8702** | 0.8923     | 1          | 0.4547     | 0.1912     | 0.4178     |
+| **0.3829** | 0.3945     | 0.4547     | 1          | 0.6707     | 0.7892     |
+| **0.0795** | 0.1102     | 0.1912     | 0.6707     | 1          | 0.6968     |
+| **0.3282** | 0.3468     | 0.4178     | 0.7892     | 0.6968     | 1          |
+
+
