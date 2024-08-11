@@ -105,20 +105,21 @@ Take ticker 5 as an example (before and after auto selection):
 
 ![](./auto_select_examples/5_after_auto_select.png)
 
-However, there is one failed case for ticker 4 (manual selection and auto selection):
+However, there is one failed case for ticker 4, where wma-line is wrong (manual selection and auto selection):
 
 ![](./auto_select_examples/4_manual_select.png)
 
 ![](./auto_select_examples/4_auto_select.png)
 
-Though it not changes the final results:
+Though it doesn't change the final results because we don't consider wma-line:
 
-|            | 1          | 0.9326     | 0.8702     | 0.3829     | 0.0795     | 0.3282     |
-|------------|------------|------------|------------|------------|------------|------------|
-| **0.9326** | 1          | 0.8923     | 0.3945     | 0.1102     | 0.3468     |
-| **0.8702** | 0.8923     | 1          | 0.4547     | 0.1912     | 0.4178     |
-| **0.3829** | 0.3945     | 0.4547     | 1          | 0.6707     | 0.7892     |
-| **0.0795** | 0.1102     | 0.1912     | 0.6707     | 1          | 0.6968     |
-| **0.3282** | 0.3468     | 0.4178     | 0.7892     | 0.6968     | 1          |
+|              | Ticker 1    | Ticker 2    | Ticker 3    | Ticker 4    | Ticker 5    | Ticker 6    |
+|--------------|-------------|-------------|-------------|-------------|-------------|-------------|
+| **Ticker 1** | 1.0000      | 0.9326      | 0.8702      | 0.3829      | 0.0795      | 0.3282      |
+| **Ticker 2** | 0.9326      | 1.0000      | 0.8923      | 0.3945      | 0.1102      | 0.3468      |
+| **Ticker 3** | 0.8702      | 0.8923      | 1.0000      | 0.4547      | 0.1912      | 0.4178      |
+| **Ticker 4** | 0.3829      | 0.3945      | 0.4547      | 1.0000      | 0.6707      | 0.7892      |
+| **Ticker 5** | 0.0795      | 0.1102      | 0.1912      | 0.6707      | 1.0000      | 0.6968      |
+| **Ticker 6** | 0.3282      | 0.3468      | 0.4178      | 0.7892      | 0.6968      | 1.0000      |
 
 
